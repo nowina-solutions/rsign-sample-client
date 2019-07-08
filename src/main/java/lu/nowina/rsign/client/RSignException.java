@@ -19,8 +19,15 @@ package lu.nowina.rsign.client;
 @SuppressWarnings("serial")
 public class RSignException extends RuntimeException {
 
+	private final Error error;
+	
 	public RSignException(Error error) {
 		super(error.getErrorCode() + " - " + error.getErrorMessage());
+		this.error = error;
+	}
+	
+	public Error getError() {
+		return error;
 	}
 	
 }
