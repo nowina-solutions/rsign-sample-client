@@ -26,6 +26,10 @@ public class Document {
 	private List<String> allowedSignatureModes;
 	private String contentReference;
 
+	public Document() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "Document [externalId=" + externalId + ", i18nKey=" + i18nKey + ", signatories=" + signatories

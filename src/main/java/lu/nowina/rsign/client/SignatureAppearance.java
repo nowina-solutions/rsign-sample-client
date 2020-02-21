@@ -16,69 +16,72 @@
  */
 package lu.nowina.rsign.client;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+public class SignatureAppearance {
 
-@JsonInclude(Include.NON_NULL)
-public class User {
+	private int page;
 
-	private String id;
-	private String firstName;
-	private String lastName;
-	private String language;
-	private String phoneNumber;
-	private String email;
+	private float x, y;
 
-	public User() {
+	private String signatureTextBackColor, signatureTextFont, signatureText, signatureTextColor;
+	
+	public SignatureAppearance() {
 		super();
 	}
 	
-	public String getId() {
-		return id;
+	public int getPage() {
+		return page;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setPage(int page) {
+		this.page = page;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public float getX() {
+		return x;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setX(float x) {
+		this.x = x;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public float getY() {
+		return y;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setY(float y) {
+		this.y = y;
 	}
 
-	public String getLanguage() {
-		return language;
+	public String getSignatureTextBackColor() {
+		return signatureTextBackColor;
 	}
 
-	public void setLanguage(String language) {
-		this.language = language;
+	public void setSignatureTextBackColor(String signatureTextBackColor) {
+		this.signatureTextBackColor = signatureTextBackColor;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public String getSignatureTextFont() {
+		return signatureTextFont;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setSignatureTextFont(String signatureTextFont) {
+		this.signatureTextFont = signatureTextFont;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getSignatureText() {
+		return signatureText;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setSignatureText(String signatureText) {
+		this.signatureText = signatureText;
+	}
+
+	public String getSignatureTextColor() {
+		return signatureTextColor;
+	}
+
+	public void setSignatureTextColor(String signatureTextColor) {
+		this.signatureTextColor = signatureTextColor;
 	}
 
 }

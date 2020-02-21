@@ -16,11 +16,15 @@
  */
 package lu.nowina.rsign.client;
 
-public class Translation {
+class Translation {
 
 	private String locale;
 	private String value;
 
+	public Translation() {
+		super();
+	}
+	
 	public String getLocale() {
 		return locale;
 	}

@@ -16,11 +16,15 @@
  */
 package lu.nowina.rsign.client;
 
-public class Error {
+class Error {
 
-	String errorCode;
-	String errorMessage;
+	private String errorCode;
+	private String errorMessage;
 
+	public Error() {
+		super();
+	}
+	
 	public String getErrorMessage() {
 		return errorMessage;
 	}

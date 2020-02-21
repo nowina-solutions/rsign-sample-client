@@ -32,15 +32,15 @@ import org.springframework.web.util.UriBuilder;
 
 public class RSignClient {
 
-	final RestTemplate restTemplate;
-
-	final String baseUrl;
+	private final RestTemplate restTemplate;
+	
+	private final String baseUrl;
 
 	public RSignClient(String baseUrl, String domain, String user, RSAPrivateKey privateKey) {
 		this.baseUrl = baseUrl;
 
 		RestTemplate template = new RestTemplate();
-		template.setErrorHandler(new RSignErrorHandler());
+		template.setErrorHandler(new RSignErrorHandler(false));
 		template.setInterceptors(Arrays.asList(new RSignAuthorization(domain, user, privateKey)));
 
 		this.restTemplate = template;
@@ -64,7 +64,7 @@ public class RSignClient {
 		}
 	}
 
-	public void createGroupTranslation(String key, String language, String value) {
+	public void createDocumentGroupTranslation(String key, String language, String value) {
 
 		Translation tr = new Translation();
 		tr.setLocale(language);
@@ -117,7 +117,7 @@ public class RSignClient {
 		}
 	}
 
-	public String createDocumentGroup(UserInfo userInfo, String title, byte[] pdfContent, Optional<SignatureInfo> info) {
+	public String createDocumentGroup(User userInfo, String title, byte[] pdfContent, Optional<SignatureAppearance> info) {
 
 		User user = searchUserByEmail(userInfo.getEmail()).orElseGet(() -> {
 
@@ -127,7 +127,7 @@ public class RSignClient {
 			newUser.setFirstName(userInfo.getFirstName());
 			newUser.setLastName(userInfo.getLastName());
 
-			RequestEntity<User> req = RequestEntity.post(apiUrl().path("/users").build()).body(newUser);
+			RequestEntity<User> req = RequestEntity.post(apiUrl().path("/users/signatories").build()).body(newUser);
 
 			restTemplate.exchange(req, Void.class);
 
@@ -138,7 +138,7 @@ public class RSignClient {
 
 		String contentRef = uploadDocumentContent(uuid, pdfContent);
 
-		createGroupTranslation(uuid, "", title);
+		createDocumentGroupTranslation(uuid, "", title);
 		createDocumentGroup(uuid);
 		createDocumentTranslation(uuid, "", title);
 		createDocument(uuid, user.getId(), contentRef, info);
@@ -159,10 +159,11 @@ public class RSignClient {
 		RequestEntity<byte[]> req = RequestEntity.post(apiUrl().path("/documents/content").build())
 				.contentType(MediaType.APPLICATION_PDF).body(pdfContent);
 
-		return restTemplate.exchange(req, String.class).getBody();
+		String result = restTemplate.exchange(req, String.class).getBody();
+		return result.substring(1, result.length() -1);
 	}
 
-	private void createDocument(String uuid, String signatoryUserId, String contentRef, Optional<SignatureInfo> info) {
+	private void createDocument(String uuid, String signatoryUserId, String contentRef, Optional<SignatureAppearance> info) {
 		Document doc = new Document();
 		doc.setExternalId(uuid);
 		doc.setI18nKey(uuid);

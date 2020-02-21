@@ -31,6 +31,10 @@ public class DocumentGroup {
 	private String creator;
 	private String status;
 
+	public DocumentGroup() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "DocumentGroup [externalId=" + externalId + ", i18nKey=" + i18nKey + ", callback=" + callback

@@ -16,18 +16,31 @@
  */
 package lu.nowina.rsign.client;
 
+import org.springframework.http.HttpStatus;
+
 @SuppressWarnings("serial")
 public class RSignException extends RuntimeException {
 
+	private final HttpStatus statusCode;
+	
 	private final Error error;
 	
-	public RSignException(Error error) {
+	public RSignException(HttpStatus statusCode, Error error) {
 		super(error.getErrorCode() + " - " + error.getErrorMessage());
 		this.error = error;
+		this.statusCode = statusCode;
 	}
 	
-	public Error getError() {
-		return error;
+	public String getErrorMessage() {
+		return error.getErrorMessage();
+	}
+
+	public String getErrorCode() {
+		return error.getErrorCode();
+	}
+	
+	public HttpStatus getStatusCode() {
+		return statusCode;
 	}
 	
 }

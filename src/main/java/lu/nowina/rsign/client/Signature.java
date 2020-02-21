@@ -18,11 +18,14 @@ package lu.nowina.rsign.client;
 
 import java.util.List;
 
-public class Signature {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+class Signature {
 	
 	private String userId;
 
-	private List<SignatureInfo> signatureInfos;
+	@JsonProperty("signatureInfos")
+	private List<SignatureAppearance> signatureInfos;
 
 	public String getUserId() {
 		return userId;
@@ -32,11 +35,11 @@ public class Signature {
 		this.userId = userId;
 	}
 
-	public List<SignatureInfo> getSignatureInfos() {
+	public List<SignatureAppearance> getSignatureInfos() {
 		return signatureInfos;
 	}
 
-	public void setSignatureInfos(List<SignatureInfo> signatureInfos) {
+	public void setSignatureInfos(List<SignatureAppearance> signatureInfos) {
 		this.signatureInfos = signatureInfos;
 	}
 	

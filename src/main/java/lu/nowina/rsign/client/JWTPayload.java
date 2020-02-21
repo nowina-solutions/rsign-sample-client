@@ -16,7 +16,7 @@
  */
 package lu.nowina.rsign.client;
 
-public class JWTPayload {
+class JWTPayload {
 
 	private long exp;
 
@@ -24,6 +24,10 @@ public class JWTPayload {
 	
 	private String jti;
 
+	public JWTPayload() {
+		super();
+	}
+	
 	public long getExp() {
 		return exp;
 	}

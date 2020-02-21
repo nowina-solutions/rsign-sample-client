@@ -33,15 +33,15 @@ import org.springframework.security.jwt.crypto.sign.RsaSigner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class RSignAuthorization implements ClientHttpRequestInterceptor {
+class RSignAuthorization implements ClientHttpRequestInterceptor {
 
-	final String domain;
+	private final String domain;
 
-	final String user;
+	private final String user;
 
-	final RSAPrivateKey privateKey;
+	private final RSAPrivateKey privateKey;
 
-	final ObjectMapper objectMapper = new ObjectMapper();
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	public RSignAuthorization(String domain, String user, RSAPrivateKey privateKey) {
 		this.domain = domain;

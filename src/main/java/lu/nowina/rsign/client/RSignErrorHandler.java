@@ -24,14 +24,27 @@ import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class RSignErrorHandler extends DefaultResponseErrorHandler {
+class RSignErrorHandler extends DefaultResponseErrorHandler {
 
-	ObjectMapper objectMapper = new ObjectMapper();
+	private ObjectMapper objectMapper = new ObjectMapper();
+	
+	/*
+	 * Some of RSign API are using 404 as an error code
+	 */
+	private final boolean _404IsError;
+	
+	public RSignErrorHandler() {
+		this(false);
+	}
+	
+	public RSignErrorHandler(boolean _404IsError) {
+		this._404IsError = _404IsError;
+	}
 	
 	@Override
 	public boolean hasError(ClientHttpResponse response) throws IOException {
 		if(response.getStatusCode() == HttpStatus.NOT_FOUND) {
-			return false;
+			return _404IsError;
 		}
 		return super.hasError(response);
 	}
@@ -39,7 +52,7 @@ public class RSignErrorHandler extends DefaultResponseErrorHandler {
 	@Override
 	protected void handleError(ClientHttpResponse response, HttpStatus statusCode) throws IOException {
 		Error error = objectMapper.readValue(response.getBody(), Error.class);
-		throw new RSignException(error);
+		throw new RSignException(response.getStatusCode(), error);
 	}
 	
 }
