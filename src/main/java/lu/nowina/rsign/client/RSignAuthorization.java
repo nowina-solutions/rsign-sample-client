@@ -67,7 +67,7 @@ class RSignAuthorization implements ClientHttpRequestInterceptor {
 
 		final RsaSigner signer = new RsaSigner(privateKey, "SHA512withRSA"); // SHA512withRSA corresponds to RS512
 
-		final int jwtMaxDuration = 15000;
+		final int jwtMaxDuration = 150000;
 
 		JWTPayload payload = new JWTPayload();
 		payload.setExp((System.currentTimeMillis() + jwtMaxDuration) / 1000);

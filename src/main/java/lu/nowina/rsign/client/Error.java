@@ -16,9 +16,16 @@
  */
 package lu.nowina.rsign.client;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 class Error {
 
+	@JsonProperty(value = "error")
 	private String errorCode;
+	
+	@JsonProperty(value =  "error_description")
 	private String errorMessage;
 
 	public Error() {

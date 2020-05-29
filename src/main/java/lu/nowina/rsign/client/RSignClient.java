@@ -19,6 +19,7 @@ package lu.nowina.rsign.client;
 import java.security.interfaces.RSAPrivateKey;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -119,6 +120,8 @@ public class RSignClient {
 
 	public String createDocumentGroup(User userInfo, String title, byte[] pdfContent, Optional<SignatureAppearance> info) {
 
+		Objects.requireNonNull(info, "appearance must not be null (if no value, use Optional.empty())");
+		
 		User user = searchUserByEmail(userInfo.getEmail()).orElseGet(() -> {
 
 			User newUser = new User();
